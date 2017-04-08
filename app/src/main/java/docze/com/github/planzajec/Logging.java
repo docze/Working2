@@ -11,22 +11,22 @@ import java.lang.String;
 
 public class Logging extends AppCompatActivity {
 
+    private static final String URL = "https://s1.wcy.wat.edu.pl/ed/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    public void logowanie(View w){
-        String result = "";
+    public void log(View w){
         EditText editPesel = (EditText) findViewById(R.id.peselInput);
         String pesel = editPesel.toString();
         EditText editPassword = (EditText) findViewById(R.id.passwordInput);
         String password = editPesel.toString();
-        Log.d("klik", "nacisnales logowanie");
+        Log.d("klik", "nacisnales log");
         Connection connection = new Connection();
-        String url = "https://s1.wcy.wat.edu.pl/ed/";
-        connection.execute(url, pesel, password );
+        connection.execute(URL, pesel, password );
     }
 
 }
