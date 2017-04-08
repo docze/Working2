@@ -60,7 +60,7 @@
             android:text="zaloguj"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:onClick="logowanie"
+            android:onClick="log"
             />
 
 
