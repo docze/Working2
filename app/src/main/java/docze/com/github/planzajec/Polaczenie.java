@@ -34,6 +34,10 @@ import java.util.Scanner;
 
 public class Polaczenie extends AsyncTask<String, Void, String> {
     String server_response;
+    private void     post(){};
+    String formname = "login";
+    int default_fun = 1;
+
 
     @Override
     protected String doInBackground(String... strings) {
@@ -54,14 +58,11 @@ public class Polaczenie extends AsyncTask<String, Void, String> {
                 }
         };
 
-
         String result = "";
         InputStream is = null;
         URL url;
         HttpsURLConnection urlConnection = null;
         SSLContext sc = null;
-
-
 
         try {
             url = new URL(strings[0]);
@@ -69,8 +70,8 @@ public class Polaczenie extends AsyncTask<String, Void, String> {
 
             sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            urlConnection.setSSLSocketFactory(sc.getSocketFactory());
 
+            urlConnection.setSSLSocketFactory(sc.getSocketFactory());
             urlConnection.setReadTimeout(7000);
             urlConnection.setConnectTimeout(7000);
             urlConnection.setRequestMethod("POST");
@@ -85,7 +86,7 @@ public class Polaczenie extends AsyncTask<String, Void, String> {
             StreamService ss = new StreamService();
             if (is != null) {
                 // Converts Stream to String with max length of 500.
-                result = new Scanner(is, "UTF-8").useDelimiter("\\s*</body>\\s*").next();
+                result = new Scanner(is, "UTF-8").useDelimiter("\\s*</head>\\s*").next();
                 Log.d("Odczyt:", result);
             }
 
