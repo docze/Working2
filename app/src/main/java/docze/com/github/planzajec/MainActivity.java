@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.Toast;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -26,10 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void logowanie(View w){
         String result = "";
+        EditText editPesel = (EditText) findViewById(R.id.peselInput);
+        String pesel = editPesel.toString();
+        EditText editPassword = (EditText) findViewById(R.id.passwordInput);
+        String password = editPesel.toString();
         Log.d("klik", "nacisnales logowanie");
         Polaczenie polaczenie = new Polaczenie();
         String url = "https://s1.wcy.wat.edu.pl/ed/";
-        polaczenie.execute(url);
+        polaczenie.execute(url, pesel, password );
     }
 
 }
