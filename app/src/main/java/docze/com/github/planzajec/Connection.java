@@ -1,7 +1,6 @@
 package docze.com.github.planzajec;
 
 import android.os.AsyncTask;
-import android.provider.DocumentsContract;
 import android.util.Log;
 
 import org.jsoup.Jsoup;
@@ -9,39 +8,21 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ResponseCache;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
-import static android.R.attr.password;
-import static android.R.attr.x;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-import static java.net.HttpURLConnection.HTTP_OK;
-import static java.net.Proxy.Type.HTTP;
 
 public class Connection extends AsyncTask<String, Void, Object> {
 
@@ -72,7 +53,7 @@ public class Connection extends AsyncTask<String, Void, Object> {
         //    Log.d("urlParameters", urlParameters);
             sendPost(strings[0]+"index.php?"+sid, urlParameters);
             result = getPageContent(strings[0]+"logged_inc.php?"+sid+"&t=6799847");
-         //   Log.d("After post", result);
+            Log.d("After post", result);
         }catch(Exception e) {
         }
 
@@ -158,17 +139,16 @@ public class Connection extends AsyncTask<String, Void, Object> {
                 new BufferedReader(new InputStreamReader(is, "ISO-8859-2"));
         String inputLine;
         StringBuffer response = new StringBuffer();
-        String all="";
-        Document doc;
+        String all = "";
+        int flaga = 0;
+        FileOutputStream fOut;
         while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+            if(inputLine.contains("<body")) flaga = 1;
+            if(flaga > 0) all += inputLine;
 
-         //   Log.d("czytnik", inputLine) // TODO: 2017-04-22  zapis do pliku
         }
         in.close();
-
-        Log.d("wynik", all);
-        return response.toString();
+        return all;
     }
 
 }
