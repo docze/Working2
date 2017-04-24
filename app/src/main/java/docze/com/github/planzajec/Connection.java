@@ -114,11 +114,19 @@ public class Connection extends AsyncTask<String, Void, Object> {
         BufferedReader in = new BufferedReader(new InputStreamReader(is, "ISO-8859-2"));
         String inputLine;
         String body = "";
-
+        // flaga = 0;
         while ((inputLine = in.readLine()) != null) {
             if(inputLine.contains("<body")){
                 body += inputLine;
             }
+            /*
+            if(inputLine.contains("<body")){
+                flaga = 1;
+            }
+            if(flaga == 1){
+                body += inputLine;
+            }
+            */
         }
 
         in.close();
