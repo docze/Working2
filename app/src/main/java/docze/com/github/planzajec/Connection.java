@@ -1,6 +1,8 @@
 package docze.com.github.planzajec;
 
+import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,6 +30,11 @@ public class Connection extends AsyncTask<String, Void, Object> {
     private final String CONTENT_TYPE = "application/x-www-form-urlencoded";
     private final String CONNECTION = "akeep-alive";
     private static SSLContext sc;
+    private Activity act;
+
+    public Connection (Activity act){
+        this.act = act;
+    }
 
     @Override
     protected Object doInBackground(String... strings) {
@@ -45,7 +52,11 @@ public class Connection extends AsyncTask<String, Void, Object> {
                 String groupName = getGroupName(afterLogPageContent);
                 System.out.println(groupName);
             } else {
-                System.out.println("Nie udało się zalogować");
+                act.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(act, "Nie udało się zalogować", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         } catch(Exception e) {
             e.printStackTrace();

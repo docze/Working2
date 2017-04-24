@@ -20,7 +20,7 @@ public class Logging extends AppCompatActivity {
         String pesel = editPesel.getText().toString();
         EditText editPassword = (EditText) findViewById(R.id.passwordInput);
         String password = editPassword.getText().toString();
-        Connection connection = new Connection();
+        Connection connection = new Connection(this);
         connection.execute(URL, pesel, password );
         cleanInputs(editPassword, editPesel);
     }
