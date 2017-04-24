@@ -1,15 +1,9 @@
 package docze.com.github.planzajec;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-
-import java.lang.String;
-
-import static android.R.id.edit;
-
 
 public class Logging extends AppCompatActivity {
 
@@ -24,10 +18,8 @@ public class Logging extends AppCompatActivity {
     public void log(View w){
         EditText editPesel = (EditText) findViewById(R.id.peselInput);
         String pesel = editPesel.getText().toString();
-        Log.d("pesel", pesel);
         EditText editPassword = (EditText) findViewById(R.id.passwordInput);
         String password = editPassword.getText().toString();
-        Log.d("klik", "nacisnales log");
         Connection connection = new Connection();
         connection.execute(URL, pesel, password );
         cleanInputs(editPassword, editPesel);
@@ -37,5 +29,4 @@ public class Logging extends AppCompatActivity {
         editPassword.setText("");
         editPesel.setText("");
     }
-
 }
