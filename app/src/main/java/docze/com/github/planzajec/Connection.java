@@ -1,6 +1,7 @@
 package docze.com.github.planzajec;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -31,9 +32,21 @@ public class Connection extends AsyncTask<String, Void, Object> {
     private final String CONNECTION = "akeep-alive";
     private static SSLContext sc;
     private Activity act;
+    ProgressDialog progDailog;
 
     public Connection (Activity act){
         this.act = act;
+        this.progDailog = new ProgressDialog(act);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        progDailog.setMessage("Loading...");
+        progDailog.setIndeterminate(false);
+        progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progDailog.setCancelable(true);
+        progDailog.show();
     }
 
     @Override
@@ -63,6 +76,12 @@ public class Connection extends AsyncTask<String, Void, Object> {
         }
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+        progDailog.dismiss();
     }
 
     private String getPageContent(String page) throws IOException {
