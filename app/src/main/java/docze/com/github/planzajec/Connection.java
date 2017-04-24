@@ -1,7 +1,6 @@
 package docze.com.github.planzajec;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
