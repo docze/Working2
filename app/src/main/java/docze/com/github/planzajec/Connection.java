@@ -40,10 +40,14 @@ public class Connection extends AsyncTask<String, Void, Object> {
             String urlParameters = "formname="+ URLEncoder.encode(FORMNAME, "UTF-8")+"&default_fun="+
                     URLEncoder.encode(DEFAULT_FUN+"", "UTF-8")+"&userid="+URLEncoder.encode(strings[1], "UTF-8")+
                     "&password="+URLEncoder.encode(strings[2], "UTF-8");
-            sendPost(strings[0]+"index.php?"+sid, urlParameters);
-            String afterLogPageContent = getPageContent(strings[0]+"logged_inc.php?"+sid+"&t=6799847");
-            String groupName = getGroupName(afterLogPageContent);
-            System.out.println(groupName);
+            String returnedPage = sendPost(strings[0]+"index.php?"+sid, urlParameters);
+            if(returnedPage.contains("logged_inc.php")) {
+                String afterLogPageContent = getPageContent(strings[0] + "logged_inc.php?" + sid + "&t=6799847");
+                String groupName = getGroupName(afterLogPageContent);
+                System.out.println(groupName);
+            } else {
+                System.out.println("Nie udało się zalogować");
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -64,7 +68,6 @@ public class Connection extends AsyncTask<String, Void, Object> {
         urlConnection.setRequestProperty("User-Agent",USER_AGENT);
 
         String content = "";
-
         try {
             urlConnection.connect();
             content = getBodyContent(urlConnection.getInputStream());
@@ -77,7 +80,7 @@ public class Connection extends AsyncTask<String, Void, Object> {
         return content;
     }
 
-    private void sendPost(String page, String postData) throws Exception {
+    private String sendPost(String page, String postData) throws Exception {
         URL url = new URL(page);
         HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
 
@@ -94,17 +97,21 @@ public class Connection extends AsyncTask<String, Void, Object> {
         urlConnection.setDoOutput(true);
         urlConnection.setDoInput(true);
 
+        String returnedPage = "";
         try {
             urlConnection.connect();
             PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
             out.print(postData);
             out.close();
             urlConnection.getInputStream();
+            returnedPage = urlConnection.getURL().toString();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             urlConnection.disconnect();
         }
+
+        return returnedPage;
     }
 
     private String getsid(String html) {
