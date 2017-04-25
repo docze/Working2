@@ -5,10 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+
 public class Logging extends AppCompatActivity {
 
     private static final String URL = "https://s1.wcy.wat.edu.pl/ed/";
-
+    public final static String EXTRA_MESSAGE = "docze.com.github.planzajec.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +24,7 @@ public class Logging extends AppCompatActivity {
         Connection connection = new Connection(this);
         connection.execute(URL, pesel, password );
         cleanInputs(editPassword, editPesel);
+
     }
 
     private void cleanInputs(EditText editPassword, EditText editPesel) {
