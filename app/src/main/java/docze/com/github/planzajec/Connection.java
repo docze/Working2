@@ -2,6 +2,7 @@ package docze.com.github.planzajec;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class Connection extends AsyncTask<String, Void, Object> {
     private final String USER_AGENT = "Mozilla/5.0";
     private final String CONTENT_TYPE = "application/x-www-form-urlencoded";
     private final String CONNECTION = "akeep-alive";
+    public final static String EXTRA_MESSAGE = "docze.com.github.planzajec.MESSAGE";
     private static SSLContext sc;
     private Activity act;
     ProgressDialog progDailog;
@@ -64,6 +66,10 @@ public class Connection extends AsyncTask<String, Void, Object> {
                 String afterLogPageContent = getPageContent(strings[0] + "logged_inc.php?" + sid + "&t=6799847");
                 String groupName = getGroupName(afterLogPageContent);
                 System.out.println(groupName);
+                Intent intent = new Intent(act, Logged_user.class);
+                intent.putExtra(EXTRA_MESSAGE, groupName);
+                act.startActivity(intent);
+
             } else {
                 act.runOnUiThread(new Runnable() {
                     public void run() {
