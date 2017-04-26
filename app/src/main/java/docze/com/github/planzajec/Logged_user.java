@@ -17,7 +17,7 @@ public class Logged_user extends AppCompatActivity {
         Intent intent = getIntent();
         String groupName = intent.getStringExtra(Logging.EXTRA_MESSAGE);
 
-        TextView textView = (TextView) findViewById(R.id.welcome);
-        textView.setText(textView.getText().toString()+" "+groupName);
+        TextView textView = (TextView) findViewById(R.id.group);
+        textView.setText(groupName);
     }
 }
