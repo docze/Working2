@@ -9,6 +9,7 @@ import android.widget.Toast;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,7 +65,7 @@ public class Connection extends AsyncTask<String, Void, Object> {
             String returnedPage = sendPost(strings[0]+"index.php?"+sid, urlParameters);
             if(returnedPage.contains("logged_inc.php")) {
                 String afterLogPageContent = getPageContent(strings[0] + "logged_inc.php?" + sid + "&t=6799847");
-                String groupName = getGroupName(afterLogPageContent);
+                String groupName = getGroupName(afterLogPageContent).first().text().substring(0,6);
                 System.out.println(groupName);
                 Intent intent = new Intent(act, Logged_user.class);
                 intent.putExtra(EXTRA_MESSAGE, groupName);
@@ -155,10 +156,12 @@ public class Connection extends AsyncTask<String, Void, Object> {
         return element.attr("action").substring(10);
     }
 
-    private String getGroupName(String html){
+    private Elements getGroupName(String html){
         Document doc = Jsoup.parse(html);
-        Element element = doc.select("td").get(2);
-        return element.text().substring(39,45);
+        Elements elements = doc.getElementsMatchingOwnText("[A-Z][0-9][A-Z][0-9][A-Z][0-9]");
+        return elements;
+        /*Element element = doc.select("td").get(2);
+        return element.text().substring(39,45);*/
     }
 
     private String getBodyContent(InputStream is) throws  Exception{
