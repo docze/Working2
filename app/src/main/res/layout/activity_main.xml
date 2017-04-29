@@ -7,63 +7,68 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="docze.com.github.planzajec.Logging">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src ="@drawable/logo_wat"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/relativeLayout"
-        android:layout_marginBottom="95dp" />
-    <RelativeLayout
+    tools:context="docze.com.github.planzajec.Logging"
+    android:overScrollMode="never"
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_height="160dp"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/relativeLayout">
+        android:layout_height="140dp">
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_weight="1"
+            android:src="@drawable/logo_wat"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="140dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="30dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Login: "/>
             <EditText
                 android:id="@+id/peselInput"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="50dp"
+                android:inputType="number"
                 android:maxLines="1"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp">
+            android:layout_height="wrap_content"
+
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hasło: "/>
             <EditText
                 android:id="@+id/passwordInput"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="50dp"
-                android:maxLines="1"
                 android:inputType="textPassword"
-                />
+                android:maxLines="1" />
         </LinearLayout>
         <Button
             android:id="@+id/button1"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_width="wrap_content"
             android:text="zaloguj"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             android:onClick="log"
             />
+    </LinearLayout>
 
 
-    </RelativeLayout>
 
 </RelativeLayout>

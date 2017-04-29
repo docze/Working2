@@ -13,6 +13,17 @@
             android:layout_centerHorizontal="true"
             android:text="Witaj, studiujesz w grupie: "
         />
+    <TextView
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:textSize="40dp"
+        android:textColor="@color/colorAccent"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        />
+
 
 
 </RelativeLayout>
