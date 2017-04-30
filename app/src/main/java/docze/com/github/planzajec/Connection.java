@@ -66,8 +66,8 @@ public class Connection extends AsyncTask<String, Void, Object> {
             if(returnedPage.contains("logged_inc.php")) {
                 String afterLogPageContent = getPageContent(strings[0] + "logged_inc.php?" + sid + "&t=6799847");
                 String groupName = getGroupName(afterLogPageContent).first().text().substring(0,6);
-                System.out.println(groupName);
-                Intent intent = new Intent(act, Logged_user.class);
+
+                Intent intent = new Intent(act, loggedUser.class);
                 intent.putExtra(EXTRA_MESSAGE, groupName);
                 act.startActivity(intent);
 
