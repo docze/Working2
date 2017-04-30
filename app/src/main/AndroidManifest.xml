@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Logged_user"
+        <activity android:name=".loggedUser"
             android:parentActivityName=".Logging" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
