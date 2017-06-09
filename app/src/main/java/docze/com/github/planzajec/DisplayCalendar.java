@@ -1,5 +1,6 @@
 package docze.com.github.planzajec;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,14 +9,16 @@ import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Scanner;
 
 public class DisplayCalendar extends AppCompatActivity implements View.OnClickListener{
 
@@ -108,8 +111,12 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
             }
         }
         setCalendarMonth();
+        view.refreshDrawableState();
+        view.invalidate();
         TextView tv = (TextView) findViewById(R.id.textView);
         tv.setText("");
+        finish();
+        startActivity(getIntent());
     }
 
     private void setCalendarMonth(){
@@ -120,6 +127,7 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         long startOfMonth = calendar.getTimeInMillis();
 
         calendar.set(java.util.Calendar.DATE, calendar.getActualMaximum(java.util.Calendar.DATE));
+        calendar.set(java.util.Calendar.MONTH, month);
         calendar.set(java.util.Calendar.HOUR_OF_DAY, 23);
         long endOfMonth = calendar.getTimeInMillis();
 
@@ -127,25 +135,36 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         calendarView.setMaxDate(endOfMonth);
         calendarView.setMinDate(startOfMonth);
         calendarView.invalidate();
+        calendarView.refreshDrawableState();
     }
 
     private void setLessonsCalendar() throws ParseException {
-        /*
-        Otwieramy plik i w pętli po każdej linii
-
-        odczytaliśmy:
-        Sieci komputerowe (w) [13],307 S,2017-04-13,13:30,2017-04-13,15:05,Fałsz,2017-04-13,13:30
-
-        subject = sieci
-        type = w
-        start = 13:30
-        number = [13]
-        classroom = 307 S
-        data = 2017-04-13
-
-         */
-
-        insertRowToMap("2017-04-30", "Sieci komputerowe", "w", "13:30", "[13]", "307 S");
+        File file = new File(this.getDir("Grupa_", Context.MODE_PRIVATE)+"I5Y2S1.txt");
+        if(file.exists()){
+            try {
+                String line;
+                String[] parts;
+                Scanner input = new Scanner(file);
+                while(input.hasNext()){
+                    line = input.nextLine();
+                    parts = line.split(",");
+                    if(parts.length>8){
+                        insertRowToMap(
+                                parts[2],
+                                parts[0].substring(0, parts[0].indexOf("(")-1),
+                                parts[0].substring(parts[0].indexOf("(")+1, parts[0].indexOf(")")),
+                                parts[3],
+                                "[" + parts[0].substring(parts[0].indexOf("[")+1, parts[0].indexOf("]")) + "]",
+                                parts[1]
+                        );
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Plik nie istnieje.");
+        }
     }
 
     private void insertRowToMap(String dateString, String subject, String type, String start, String number, String classRoom) {
