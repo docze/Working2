@@ -4,7 +4,7 @@
     android:id="@+id/relLay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="docze.com.github.planzajec.loggedUser">
+    tools:context="docze.com.github.planzajec.DisplayCalendar">
     
     <ImageButton
         android:id="@+id/buttonFront"
