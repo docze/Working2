@@ -69,7 +69,7 @@ public class Connection extends AsyncTask<String, Void, Object> {
                 String groupName = getGroupName(afterLogPageContent).first().text().substring(0,6);
 
                 URL url = null;
-                //    Log.d("stringUrl", sid);
+
                 try{
                     url = new URL("http://az-serwer1701230.online.pro/wat/"+groupName+".txt");
                 }catch (MalformedURLException e){

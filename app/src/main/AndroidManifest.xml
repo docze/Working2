@@ -25,7 +25,7 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".WelcomeView" />
         </activity>
 
-        <activity android:name=".DisplayCalendar" android:parentActivityName=".Logging" >
+        <activity android:name=".DisplayCalendar" android:parentActivityName=".Logging">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".WelcomeView" />
         </activity>
     </application>
