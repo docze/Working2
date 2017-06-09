@@ -1,6 +1,5 @@
 package docze.com.github.planzajec;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +16,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import static android.os.Build.VERSION_CODES.M;
 
 public class loggedUser extends AppCompatActivity implements View.OnClickListener{
 
