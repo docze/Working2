@@ -27,7 +27,6 @@ public class Logging extends AppCompatActivity {
         Connection connection = new Connection(this);
         connection.execute(URL, pesel, password );
         cleanInputs(editPassword, editPesel);
-
     }
 
     private void cleanInputs(EditText editPassword, EditText editPesel) {

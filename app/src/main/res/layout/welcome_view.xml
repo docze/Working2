@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="121dp"
+        android:layout_weight="1"
+        android:src="@drawable/logo_wat"
+        />
+
+    <Button
+        android:id="@+id/show_schedule"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="118dp"
+        android:onClick="showSchedule"
+        android:text="Wyswietl Plan" />
+
+    <Button
+        android:id="@+id/update_schedule"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="118dp"
+        android:onClick="updateSchedule"
+        android:text="Aktualizuj" />
+
+</LinearLayout>
