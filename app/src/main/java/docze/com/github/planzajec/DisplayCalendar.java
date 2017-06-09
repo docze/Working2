@@ -1,6 +1,7 @@
 package docze.com.github.planzajec;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,10 +49,12 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         buttonFront.setOnClickListener(this);
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+
         final TextView tv = (TextView) findViewById(R.id.textView);
 
         try {
             setLessonsCalendar();
+            putLessonsToCalendar(calendarView, year, month, day);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -59,34 +62,38 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-                try {
-                    String text = "";
-                    String m;
-                    int mm = month+1;
-                    if(mm < 10){
-                        m = "0" + mm;
-                    } else {
-                        m = mm + "";
-                    }
-
-                    Lesson[] l = lessons.get(new Date(dateFormat.parse(year + "-" + m + "-" + dayOfMonth).getTime()));
-
-                    if(l != null){
-                        for(Lesson lesson : l){
-                            text += lesson + "\n\n";
-                        }
-                        tv.setText(text);
-                    } else {
-                        tv.setText("");
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth){
+                putLessonsToCalendar(view, year, month, dayOfMonth);
             }
         });
 
+    }
+
+    void putLessonsToCalendar(CalendarView view, int year, int month, int dayOfMonth) {
+        final TextView tv = (TextView) findViewById(R.id.textView);
+        try {
+            String text = "";
+            String m;
+            int mm = month+1;
+            if(mm < 10){
+                m = "0" + mm;
+            } else {
+                m = mm + "";
+            }
+
+            Lesson[] l = lessons.get(new Date(dateFormat.parse(year + "-" + m + "-" + dayOfMonth).getTime()));
+
+            if(l != null){
+                for(Lesson lesson : l){
+                    text += lesson + "\n\n";
+                }
+                tv.setText(text);
+            } else {
+                tv.setText("");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -139,7 +146,8 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setLessonsCalendar() throws ParseException {
-        File file = new File(this.getDir("Grupa_", Context.MODE_PRIVATE)+"I5Y2S1.txt");
+        String groupName = getIntent().getStringExtra(Connection.EXTRA_MESSAGE);
+        File file = new File(this.getDir("Grupa_", Context.MODE_PRIVATE)+ groupName + ".txt");
         if(file.exists()){
             try {
                 String line;
