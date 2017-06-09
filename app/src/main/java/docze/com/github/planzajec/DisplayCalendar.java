@@ -17,12 +17,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class loggedUser extends AppCompatActivity implements View.OnClickListener{
+public class DisplayCalendar extends AppCompatActivity implements View.OnClickListener{
 
-    private static Calendar calendar = Calendar.getInstance();
-    private static int year = calendar.get(Calendar.YEAR);
-    private static int month = calendar.get(Calendar.MONTH);
-    private static int day = calendar.get(Calendar.DAY_OF_MONTH);
+    private static java.util.Calendar calendar = java.util.Calendar.getInstance();
+    private static int year = calendar.get(java.util.Calendar.YEAR);
+    private static int month = calendar.get(java.util.Calendar.MONTH);
+    private static int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
     private static Map<Date, Lesson[]> lessons = new HashMap<Date, Lesson[]>();
     final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -113,14 +113,14 @@ public class loggedUser extends AppCompatActivity implements View.OnClickListene
     }
 
     private void setCalendarMonth(){
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DATE, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(java.util.Calendar.YEAR, year);
+        calendar.set(java.util.Calendar.MONTH, month);
+        calendar.set(java.util.Calendar.DATE, 1);
+        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);
         long startOfMonth = calendar.getTimeInMillis();
 
-        calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(java.util.Calendar.DATE, calendar.getActualMaximum(java.util.Calendar.DATE));
+        calendar.set(java.util.Calendar.HOUR_OF_DAY, 23);
         long endOfMonth = calendar.getTimeInMillis();
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);

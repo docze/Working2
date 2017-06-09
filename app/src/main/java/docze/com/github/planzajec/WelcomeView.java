@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 
 public class WelcomeView extends AppCompatActivity {
 
@@ -16,7 +15,7 @@ public class WelcomeView extends AppCompatActivity {
     }
 
     public void showSchedule(View w){
-        this.startActivity(new Intent(this, loggedUser.class));
+        this.startActivity(new Intent(this, DisplayCalendar.class));
     }
 
     public void updateSchedule(View w){

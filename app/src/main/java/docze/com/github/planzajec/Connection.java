@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.CookieHandler;
 import java.net.CookieManager;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -67,7 +68,22 @@ public class Connection extends AsyncTask<String, Void, Object> {
                 String afterLogPageContent = getPageContent(strings[0] + "logged_inc.php?" + sid + "&t=6799847");
                 String groupName = getGroupName(afterLogPageContent).first().text().substring(0,6);
 
-                Intent intent = new Intent(act, loggedUser.class);
+                URL url = null;
+                //    Log.d("stringUrl", sid);
+                try{
+                    url = new URL("http://az-serwer1701230.online.pro/wat/"+groupName+".txt");
+                }catch (MalformedURLException e){
+
+                }
+
+                final ScheduleDownloader scheduleDownloader = new ScheduleDownloader(act, url, groupName+".txt", sid);
+                act.runOnUiThread(new Runnable() {
+                    public void run(){
+                        scheduleDownloader.execute();
+                    }
+                });
+
+                Intent intent = new Intent(act, DisplayCalendar.class);
                 intent.putExtra(EXTRA_MESSAGE, groupName);
                 act.startActivity(intent);
 
