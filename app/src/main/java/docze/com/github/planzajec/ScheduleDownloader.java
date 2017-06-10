@@ -24,12 +24,30 @@ import javax.net.ssl.X509TrustManager;
 
 import static android.os.Build.VERSION_CODES.M;
 
+/**
+ * Klasa rozszerzająca klasę AsyncTask. AsyncTask to asnychroniczne zadanie
+ * wykonywane w wątku tła. Zadanie wykonywane jest poprzez wywołanie metody execute.
+ * Po zakończeniu wykonywania zadania, nie można wykonać go ponownie.
+ * Pozwala na polaczenie sie ze strona http oraz pobranie plików
+ **/
+
 public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
-    private static SSLContext sc;
+    /** Adres strony */
     private URL url;
+    /** Nazwa pliku do pobrania */
     private String nameOfFile = "";
+    /** Obiekt activity, ktore wywołuje zadanie */
     private Activity act;
+    /** Id sesji */
     private String sid;
+
+    /**
+     * Konstruktor zadania, pozwalana na zainicjalizowanie atrybutów klasy
+     * @param act activity, ktore wywoluje zadanie
+     * @param url adres strony
+     * @param nameOfFile nazwa pliku do pobrania
+     * @param sid id sesji
+     */
     public ScheduleDownloader(Activity act, URL url, String nameOfFile, String sid) {
         this.act = act;
         this.url = url;
@@ -38,17 +56,14 @@ public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
         Log.d("sid", this.sid);
     }
 
-    public void setURL(String url){
-        try {
-            this.url = new URL(url);
-        }catch (MalformedURLException e){
-            Log.d("urlError", e.toString());
-        }
-    };
-    public void setNameOfFile(String nameOfFile) {
-        this.nameOfFile = nameOfFile;
-    }
-
+    /**
+     *
+     *  Metoda obsługująca pracę w tle. Odpowiedzialna za sekwencyjne wykonywanie zadania
+     * @param strings - tablica parametrów typu String przesylanych podczas wykonania
+     *                 metody execute, w tym przypadku nie jest wykorzystywana, ale klasa AsyncTask
+     *                 wymaga takiej konstrukcji.
+     * @return
+     */
     protected Object doInBackground(String... strings)  {
         Log.d("url", url.toString());
         try {
@@ -59,9 +74,13 @@ public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
 
         return null;
     }
-    private String downloadFile() throws Exception {
-            HttpURLConnection urlConnection = (HttpURLConnection)  url.openConnection();
 
+    /**
+     * Metoda pobiera plik z zadanego adresu http
+     * @throws Exception
+     */
+    private void downloadFile() throws Exception {
+            HttpURLConnection urlConnection = (HttpURLConnection)  url.openConnection();
             urlConnection.setDoInput(true);
             int responseCode = urlConnection.getResponseCode();
             if( responseCode == HttpsURLConnection.HTTP_OK) {
@@ -86,22 +105,6 @@ public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
             }else{
                 Log.d("Pobranie", "nie udalo sie");
             }
-         return null;
     }
-    private void trustEveryone() {
-        TrustManager[] trustAllCerts = new TrustManager[]{
-                new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {return null;}
-                    public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {};
-                    public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {};
-                }
-        };
-        try {
-            sc  = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 }
