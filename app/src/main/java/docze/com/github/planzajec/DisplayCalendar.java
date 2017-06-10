@@ -1,7 +1,6 @@
 package docze.com.github.planzajec;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,15 +20,29 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Klasa obsługująca kalendarz - jego wyświetlanie i przetwarzanie danych
+ */
 public class DisplayCalendar extends AppCompatActivity implements View.OnClickListener{
 
+    /** Pole kalendarza do ustalania dat */
     private static java.util.Calendar calendar = java.util.Calendar.getInstance();
+    /** Pole przechowujące rok */
     private static int year = calendar.get(java.util.Calendar.YEAR);
+    /** Pole przechowujące miesiąc */
     private static int month = calendar.get(java.util.Calendar.MONTH);
+    /** Pole przechowujące dzień miesiąca */
     private static int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+    /** Mapa przechowująca lekcje - kluczami są daty, a wartościami tablice zajęć w danym dniu */
     private static Map<Date, Lesson[]> lessons = new HashMap<Date, Lesson[]>();
+    /** Pole przechowujące format daty "yyyy-MM-dd" */
     final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    /** Metoda wywoływana automatycznie po utworzeniu Activity obsługującego kalendarz. Ustawiany jest
+     *  język, w jakim mają zostać wyświetlone miesiące. Metoda dodaje również odpowiedniego słuchacza
+     *  do przycisków zmiany miesięcy w tył i w przód, a także do akcji zmiany daty w danym miesiącu.
+     *  @param savedInstanceState   zachowany stan instancji
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +82,12 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    /** Metoda dodająca lekcje do aktualnie zaznaczonego dnia w kalendarzu
+     *  @param view         widok kalendarza
+     *  @param year         wybrany i zaznaczony przez użytkownika rok
+     *  @param month        wybrany i zaznaczony przez użytkownika miesiąc
+     *  @param dayOfMonth   wybrany i zaznaczony przez użytkownika dzień miesiąca
+     */
     void putLessonsToCalendar(CalendarView view, int year, int month, int dayOfMonth) {
         final TextView tv = (TextView) findViewById(R.id.textView);
         try {
@@ -96,6 +115,11 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /** Metoda wywoływana po kliknięciu przyciski zmiany miesiąca wstecz lub w przód - oblicza nowy miesiąc,
+     * który powinien zostać wyświetlony. Następnie kończy obecnie wyświetlane Activity i rozpoczyna nowe,
+     * z nowym wybranym przez użytkownika miesiącem.
+     * @param view      widok, do którego są dołączone przyciski
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -126,6 +150,9 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         startActivity(getIntent());
     }
 
+    /** Metoda wykorzystywana do obliczenia pierwszego i ostatniego dnia miesiąca, aby
+     * wyświetlić tylko jeden, wybrany przez użytkownika miesiać.
+     */
     private void setCalendarMonth(){
         calendar.set(java.util.Calendar.YEAR, year);
         calendar.set(java.util.Calendar.MONTH, month);
@@ -145,6 +172,10 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         calendarView.refreshDrawableState();
     }
 
+    /** Metoda przetwarzająca zapisany w pamięci urządzenia plik tekstowy planu zajęć w formacie CSV.
+     *  Plik ten jest wczytywany linia po linii, dzielony na części względem przecinka, a następnie
+     *  zapisane w danej linii zajęcie ze wszystkimi istotnymi szczegółami jest dodawane do mapy zajęć.
+     * */
     private void setLessonsCalendar() throws ParseException {
         String groupName = getIntent().getStringExtra(Connection.EXTRA_MESSAGE);
         File file = new File(this.getDir("Grupa_", Context.MODE_PRIVATE)+ groupName + ".txt");
@@ -175,6 +206,14 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /** Metoda pozwalająca wstawić do mapy zajęć nowe zajęcie.
+     *  @param dateString       data zajęcia
+     *  @param subject          przedmiot
+     *  @param type             typ zajęcia
+     *  @param start            godzina rozpoczęcia
+     *  @param number           kolejny numer zajęcia z danego przedmiotu i typu
+     *  @param classRoom        sala
+     */
     private void insertRowToMap(String dateString, String subject, String type, String start, String number, String classRoom) {
         try {
             Date date = new Date(dateFormat.parse(dateString).getTime());
@@ -202,6 +241,10 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /** Metoda obliczająća na podstawie przekazanej jako parametr godziny rozpoczęcia zajęć oblicza,
+     *  który jest to blok zajęć w ciągu dnia.
+     *  @param start godzina rozpoczęcia zajęć
+     */
     private int countIndex(String start) {
         int index = -1;
         switch(start){

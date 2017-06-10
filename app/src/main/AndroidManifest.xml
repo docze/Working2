@@ -13,21 +13,30 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".WelcomeView" android:windowSoftInputMode="adjustNothing">
+        <activity
+            android:name=".WelcomeView"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Logging" android:windowSoftInputMode="adjustNothing">
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".WelcomeView" />
+        <activity
+            android:name=".Logging"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WelcomeView" />
         </activity>
-
-        <activity android:name=".DisplayCalendar" android:parentActivityName=".Logging">
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".WelcomeView" />
+        <activity
+            android:name=".DisplayCalendar"
+            android:parentActivityName=".Logging">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WelcomeView" />
         </activity>
+        <activity android:name=".FileList"></activity>
     </application>
 
 </manifest>

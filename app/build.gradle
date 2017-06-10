@@ -24,8 +24,10 @@ dependencies {
 
     // jsoup HTML parser library @ http://jsoup.org/
 
-    compile'com.android.support:appcompat-v7:24.2.1'
-    compile'org.jsoup:jsoup:1.10.2'
-    compile'com.android.support.constraint:constraint-layout:1.0.0-alpha2'
-    testCompile'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'org.jsoup:jsoup:1.10.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha2'
+    compile 'com.android.support:design:24.2.1'
+    compile 'commons-net:commons-net:3.3'
+    testCompile 'junit:junit:4.12'
 }

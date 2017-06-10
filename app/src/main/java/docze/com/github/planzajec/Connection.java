@@ -27,22 +27,47 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+/**
+ * Klasa rozszerzająca klasę AsyncTask. AsyncTask to asnychroniczne zadanie
+ * wykonywane w wątku tła. Zadanie wykonywane jest poprzez wywołanie metody execute.
+ * Po zakończeniu wykonywania zadania, nie można wykonać go ponownie.
+ * Pozwala na polaczenie sie ze strona logowania www.s1.wcy.wat.edu.pl/en/
+ * Nastepnie wykonuje logowanie do wyzej wymienionej strony.
+ * Po zakoczeniu pracy przechodzi do activity DisplayCalendar
+ */
+
 public class Connection extends AsyncTask<String, Void, Object> {
+    /** Klucz zapytania podczas logowania */
     private final String FORMNAME = "login";
+    /** Klucz zapytania podczas logowania */
     private final int DEFAULT_FUN = 1;
+    /** Klucz zapytania podczas logowania */
     private final String USER_AGENT = "Mozilla/5.0";
+    /** Klucz zapytania podczas logowania */
     private final String CONTENT_TYPE = "application/x-www-form-urlencoded";
+    /** Klucz zapytania podczas logowania */
     private final String CONNECTION = "akeep-alive";
+    /** Klucz zapytania podczas logowania */
     public final static String EXTRA_MESSAGE = "docze.com.github.planzajec.MESSAGE";
+    /** Obiekt przechowujacy parametry protokołu SSL*/
     private static SSLContext sc;
     private Activity act;
     ProgressDialog progDailog;
 
+    /** Konstruktor klasy
+     *
+     * @param act   pozwala na wyświetlanie powiadomień i paska postępu,
+     *              na activity, które wywołało metodę execute na rzecz
+     *              obiektu klasy Connection
+     */
     public Connection (Activity act){
         this.act = act;
         this.progDailog = new ProgressDialog(act);
     }
 
+    /**
+     * Metoda odpowiedzialna za wyświetlanie okna dialogowego ładowania
+     */
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -53,6 +78,12 @@ public class Connection extends AsyncTask<String, Void, Object> {
         progDailog.show();
     }
 
+    /**
+     *  Metoda obsługująca pracę w tle. Odpowiedzialna za sekwencyjne wykonywanie zadania
+     *
+     * @param strings - Tablica stringów przechowują adres strony logowania, logino oraz hasło
+     * @return
+     */
     @Override
     protected Object doInBackground(String... strings) {
         CookieHandler.setDefault(new CookieManager());
@@ -101,12 +132,23 @@ public class Connection extends AsyncTask<String, Void, Object> {
         return null;
     }
 
+    /**
+     * Metoda odpowiedzialna za zamknięcia okna dialogowego ładowania, po wykonaniu zadania
+     * @param o -  obiekt typu zwracanego przez zadanie asynchroniczne
+     */
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         progDailog.dismiss();
     }
 
+    /**
+     * Wykonuje zapytanie GET na adres wskazany w parametrze page w celu pobrania klucza sesji
+     * oraz niezbędnych parametrów do zalogwania się
+     * @param page - adres strony, na który ma zostać wykonane zapytanie GET
+     * @return - odpowiedź od strony, kod źródłowy HTML
+     * @throws IOException
+     */
     private String getPageContent(String page) throws IOException {
         URL url = new URL(page);
         HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
@@ -132,6 +174,13 @@ public class Connection extends AsyncTask<String, Void, Object> {
         return content;
     }
 
+    /**
+     * Metoda wykonuje zapytanie post w celu zalogowania się do edziekanatu
+     * @param page - adres strony na który jest wykonywane zapytanie POST
+     * @param postData - przetworzone dane formularza
+     * @return - zwraca odpowiedź strony, kod źródłowy HTML
+     * @throws Exception
+     */
     private String sendPost(String page, String postData) throws Exception {
         URL url = new URL(page);
         HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
@@ -166,44 +215,50 @@ public class Connection extends AsyncTask<String, Void, Object> {
         return returnedPage;
     }
 
+    /**
+     * Metoda wynajduje w kodzie źródłowym id sesji
+     * @param html - kod źródłowy strony
+     * @return - zwraca id sesji
+     */
     private String getsid(String html) {
         Document doc = Jsoup.parse(html);
         Element element = doc.select("form").first();
         return element.attr("action").substring(10);
     }
 
+    /**
+     * Metoda wyszukuje numer grupy zalogowowanego studenta
+     * @param html - kod źródłowy strony
+     * @return - numer grupy zalogowanego studenta
+     */
     private Elements getGroupName(String html){
         Document doc = Jsoup.parse(html);
         Elements elements = doc.getElementsMatchingOwnText("[A-Z][0-9][A-Z][0-9][A-Z][0-9]");
         return elements;
-        /*Element element = doc.select("td").get(2);
-        return element.text().substring(39,45);*/
     }
 
+    /**
+     * Metoda zapisuje jedynie <body></body> kodu źródłowego ze strumienia wejściowego
+     * @param is - strumień wejściowy, odbior odpowiedzi strony
+     * @return - zwraca <body></body> kodu źródłowego
+     * @throws Exception
+     */
     private String getBodyContent(InputStream is) throws  Exception{
         BufferedReader in = new BufferedReader(new InputStreamReader(is, "ISO-8859-2"));
         String inputLine;
         String body = "";
-
-        // int flag = 0;
         while ((inputLine = in.readLine()) != null) {
             if(inputLine.contains("<body")){
                 body += inputLine;
             }
-            /*
-            if(inputLine.contains("<body")){
-                flag = 1;
-            }
-            if(flag == 1){
-                body += inputLine;
-            }
-            */
         }
 
         in.close();
         return body;
     }
-
+    /**
+     * Metoda powoduje wyłączenie sprawdzania certyfikatów strony https
+     */
     private void trustEveryone() {
 
         TrustManager[] trustAllCerts = new TrustManager[]{

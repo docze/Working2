@@ -14,20 +14,28 @@
 
     <Button
         android:id="@+id/show_schedule"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="118dp"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
         android:onClick="showSchedule"
         android:text="Wyswietl Plan" />
 
     <Button
         android:id="@+id/update_schedule"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="60dp"
-        android:layout_marginLeft="118dp"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
         android:onClick="updateSchedule"
         android:text="Aktualizuj" />
+    <Button
+        android:id="@+id/fileList"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center"
+        android:onClick="showFileList"
+        android:text="Lista zajeć" />
 
 </LinearLayout>
