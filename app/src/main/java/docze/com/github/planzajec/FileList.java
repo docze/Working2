@@ -22,13 +22,13 @@ import java.util.concurrent.ExecutionException;
 public class FileList extends AppCompatActivity {
     /** lista zaznaczonych CheckBox*/
     List<String> checkBoxes = null;
-    /** lista grup, na podstawie której będą stworzone obiekty typu CheckBox*/
+    /** lista grup, na podstawie ktorej beda stworzone obiekty typu CheckBox*/
     List<String> groupList = null;
     /** Adres FTP, z ktorej bedzie pobierana lista grup */
     URL url = null;
     /**
      * Metoda odpowiedzialna za stworzenie widoku
-     * @param savedInstanceState - informacja na temat stanu activity
+     * @param savedInstanceState informacja na temat stanu activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class FileList extends AppCompatActivity {
 
     /**
      * Metoda odpowiedzialna za stworzenie CheckBox w acitvity_file_list.xml
-     * zgodnie z listą
+     * zgodnie z lista
      */
     protected void fillList(){
         checkBoxes = new ArrayList<>();
@@ -65,9 +65,9 @@ public class FileList extends AppCompatActivity {
     }
 
     /**
-     *  Metoda obsługująca zdarzenie onclick, na rzecz przycisku @id/Download
-     * w widoku acitvity_file_list.xml, pozwala na przejście do widoku kalendarza
-     * @param w - widok activity
+     *  Metoda obslugująca zdarzenie onclick, na rzecz przycisku @id/Download
+     * w widoku acitvity_file_list.xml, pozwala na przejscie do widoku kalendarza
+     * @param w widok activity
      */
     public void downloadFile(View w){
         if(checkBoxes != null){

@@ -22,23 +22,23 @@ public class WelcomeView extends AppCompatActivity {
     }
 
     /**
-     * Metoda obsługująca zdarzenie onclick, na rzecz przycisku @id/show_schedule
-     *  w widoku activity_main, pozwala na przejście do ekranu wyboru planu do wyświetlenia
-     * @param w - widok activity
+     * Metoda obslugująca zdarzenie onclick, na rzecz przycisku @id/show_schedule
+     *  w widoku activity_main, pozwala na przejscie do ekranu wyboru planu do wyswietlenia
+     * @param w widok activity
      */
     public void chooseScheduleToDisplay(View w){this.startActivity(new Intent(this, ScheduleChooser.class));}
 
     /**
-     * Metoda obsługująca zdarzenie onclick, na rzecz przycisku @id/updateSchedule
-     * w widoku activity_main, pozwala na przejście do ekranu logowania
-     * @param w - widok activity
+     * Metoda obslugujaca zdarzenie onclick, na rzecz przycisku @id/updateSchedule
+     * w widoku activity_main, pozwala na przejscie do ekranu logowania
+     * @param w widok activity
      */
     public void updateSchedule(View w){
         this.startActivity(new Intent(this, Logging.class));
     }
     /**
-     * Metoda obsługująca zdarzenie onclick, na rzecz przycisku @id/fileList
-     * w widoku activity_main, pozwala na przejście do listy plików do pobrania
+     * Metoda obslugująca zdarzenie onclick, na rzecz przycisku @id/fileList
+     * w widoku activity_main, pozwala na przejscie do listy plikow do pobrania
      * @param w - widok activity
      */
     public void showFileList(View w){

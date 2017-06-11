@@ -28,9 +28,9 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 /**
- * Klasa rozszerzająca klasę AsyncTask. AsyncTask to asnychroniczne zadanie
- * wykonywane w wątku tła. Zadanie wykonywane jest poprzez wywołanie metody execute.
- * Po zakończeniu wykonywania zadania, nie można wykonać go ponownie.
+ * Klasa rozszerzajaca klase AsyncTask. AsyncTask to asnychroniczne zadanie
+ * wykonywane w watku tla. Zadanie wykonywane jest poprzez wywolanie metody execute.
+ * Po zakonczeniu wykonywania zadania, nie mozna wykonac go ponownie.
  * Pozwala na polaczenie sie ze strona logowania www.s1.wcy.wat.edu.pl/en/
  * Nastepnie wykonuje logowanie do wyzej wymienionej strony.
  * Po zakoczeniu pracy przechodzi do activity DisplayCalendar
@@ -47,15 +47,16 @@ public class Connection extends AsyncTask<String, Void, Object> {
     private final String CONTENT_TYPE = "application/x-www-form-urlencoded";
     /** Klucz zapytania podczas logowania */
     private final String CONNECTION = "akeep-alive";
-    /** Obiekt przechowujacy parametry protokołu SSL*/
+    /** Obiekt przechowujacy parametry protokolu SSL*/
     private static SSLContext sc;
+    /** Activity, w ktorym jest wykonywane polaczenie*/
     private Activity act;
+    /** Obiekt okna dialogowego */
     ProgressDialog progDailog;
 
-    /** Konstruktor klasy
-     *
-     * @param act   pozwala na wyświetlanie powiadomień i paska postępu,
-     *              na activity, które wywołało metodę execute na rzecz
+    /**
+     * @param act   pozwala na wyswietlanie powiadomien i paska postępu,
+     *              na activity, ktore wywolalo metode execute na rzecz
      *              obiektu klasy Connection
      */
     public Connection (Activity act){
@@ -64,7 +65,7 @@ public class Connection extends AsyncTask<String, Void, Object> {
     }
 
     /**
-     * Metoda odpowiedzialna za wyświetlanie okna dialogowego ładowania
+     * Metoda odpowiedzialna za wyswietlanie okna dialogowego ladowania
      */
     @Override
     protected void onPreExecute() {
@@ -77,10 +78,10 @@ public class Connection extends AsyncTask<String, Void, Object> {
     }
 
     /**
-     *  Metoda obsługująca pracę w tle. Odpowiedzialna za sekwencyjne wykonywanie zadania
+     *  Metoda obslugujaca prace w tle. Odpowiedzialna za sekwencyjne wykonywanie zadania
      *
-     * @param strings - Tablica stringów przechowują adres strony logowania, logino oraz hasło
-     * @return
+     * @param strings Tablica napisow przechowujaca adres strony logowania, login oraz haslo
+     * @return null
      */
     @Override
     protected Object doInBackground(String... strings) {
@@ -129,8 +130,8 @@ public class Connection extends AsyncTask<String, Void, Object> {
     }
 
     /**
-     * Metoda odpowiedzialna za zamknięcia okna dialogowego ładowania, po wykonaniu zadania
-     * @param o -  obiekt typu zwracanego przez zadanie asynchroniczne
+     * Metoda odpowiedzialna za zamkniecie okna dialogowego ladowania, po wykonaniu zadania
+     * @param o obiekt typu zwracanego przez zadanie asynchroniczne
      */
     @Override
     protected void onPostExecute(Object o) {
@@ -140,9 +141,9 @@ public class Connection extends AsyncTask<String, Void, Object> {
 
     /**
      * Wykonuje zapytanie GET na adres wskazany w parametrze page w celu pobrania klucza sesji
-     * oraz niezbędnych parametrów do zalogwania się
-     * @param page - adres strony, na który ma zostać wykonane zapytanie GET
-     * @return - odpowiedź od strony, kod źródłowy HTML
+     * oraz niezbednych parametrow do zalogowania sie
+     * @param page adres strony, na ktory ma zostac wykonane zapytanie GET
+     * @return odpowiedz od strony, kod zrodłowy HTML
      * @throws IOException
      */
     private String getPageContent(String page) throws IOException {
@@ -171,10 +172,10 @@ public class Connection extends AsyncTask<String, Void, Object> {
     }
 
     /**
-     * Metoda wykonuje zapytanie post w celu zalogowania się do edziekanatu
-     * @param page - adres strony na który jest wykonywane zapytanie POST
-     * @param postData - przetworzone dane formularza
-     * @return - zwraca odpowiedź strony, kod źródłowy HTML
+     * Metoda wykonuje zapytanie post w celu zalogowania sie do edziekanatu
+     * @param page adres strony na ktory jest wykonywane zapytanie POST
+     * @param postData przetworzone dane formularza
+     * @return zwraca odpowiedz strony, kod zrodłowy HTML
      * @throws Exception
      */
     private String sendPost(String page, String postData) throws Exception {
@@ -212,9 +213,9 @@ public class Connection extends AsyncTask<String, Void, Object> {
     }
 
     /**
-     * Metoda wynajduje w kodzie źródłowym id sesji
-     * @param html - kod źródłowy strony
-     * @return - zwraca id sesji
+     * Metoda wynajduje w kodzie zrodłowym id sesji
+     * @param html kod zrodłowy strony
+     * @return id sesji
      */
     private String getsid(String html) {
         Document doc = Jsoup.parse(html);
@@ -224,8 +225,8 @@ public class Connection extends AsyncTask<String, Void, Object> {
 
     /**
      * Metoda wyszukuje numer grupy zalogowowanego studenta
-     * @param html - kod źródłowy strony
-     * @return - numer grupy zalogowanego studenta
+     * @param html kod zrodlowy strony
+     * @return numer grupy zalogowanego studenta
      */
     private Elements getGroupName(String html){
         Document doc = Jsoup.parse(html);
@@ -234,9 +235,9 @@ public class Connection extends AsyncTask<String, Void, Object> {
     }
 
     /**
-     * Metoda zapisuje jedynie <body></body> kodu źródłowego ze strumienia wejściowego
-     * @param is - strumień wejściowy, odbior odpowiedzi strony
-     * @return - zwraca <body></body> kodu źródłowego
+     * Metoda zapisuje <body></body> kodu zrodłowego ze strumienia wejsciowego
+     * @param is strumien wejsciowy, odbior odpowiedzi strony
+     * @return <body></body> kodu zrodlowego
      * @throws Exception
      */
     private String getBodyContent(InputStream is) throws  Exception{
@@ -253,7 +254,7 @@ public class Connection extends AsyncTask<String, Void, Object> {
         return body;
     }
     /**
-     * Metoda powoduje wyłączenie sprawdzania certyfikatów strony https
+     * Metoda powoduje wylaczenie sprawdzania certyfikatow strony https
      */
     private void trustEveryone() {
 
