@@ -47,8 +47,6 @@ public class Connection extends AsyncTask<String, Void, Object> {
     private final String CONTENT_TYPE = "application/x-www-form-urlencoded";
     /** Klucz zapytania podczas logowania */
     private final String CONNECTION = "akeep-alive";
-    /** Klucz zapytania podczas logowania */
-    public final static String EXTRA_MESSAGE = "docze.com.github.planzajec.MESSAGE";
     /** Obiekt przechowujacy parametry protokołu SSL*/
     private static SSLContext sc;
     private Activity act;
@@ -114,9 +112,7 @@ public class Connection extends AsyncTask<String, Void, Object> {
                     }
                 });
 
-                Intent intent = new Intent(act, DisplayCalendar.class);
-                intent.putExtra(EXTRA_MESSAGE, groupName);
-                act.startActivity(intent);
+                act.startActivity(new Intent(act, ScheduleChooser.class));
 
             } else {
                 act.runOnUiThread(new Runnable() {

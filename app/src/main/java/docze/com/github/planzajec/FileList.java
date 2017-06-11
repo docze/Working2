@@ -54,10 +54,6 @@ public class FileList extends AppCompatActivity {
     protected void fillList(){
         checkBoxes = new ArrayList<>();
         LinearLayout ll = (LinearLayout)  findViewById(R.id.listGroup);
-        LinearLayout.LayoutParams checkParams = new LinearLayout.
-                LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        int groupNumber;
         for(String box: groupList){
             CheckBox checkBox = new CheckBox(this.getApplicationContext());
             checkBox.setTextColor(Color.BLACK);
@@ -74,13 +70,10 @@ public class FileList extends AppCompatActivity {
      * @param w - widok activity
      */
     public void downloadFile(View w){
-        Log.d("DownlaodFile", "nacisnieto");
         if(checkBoxes != null){
-            Log.d("DownlaodFile", "jest co pobierac");
             try{
                 url = new URL("http://woonkievitch.pl/wat/");
                 for(String box: checkBoxes){
-                    Log.d("DownloadFile", "pobieram z "+box);
                     url = new URL("http://woonkievitch.pl/wat/"+box);
                     ScheduleDownloader scheduleDownloader = new ScheduleDownloader(this, url, box, "23123" );
                     Object obj = scheduleDownloader.execute().get();
@@ -103,9 +96,6 @@ public class FileList extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Usunalem z listy pobierania: " + checkbox.getText(), Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
-            for(String box: checkBoxes){
-                Log.d("Tag", box);
             }
         }
     };

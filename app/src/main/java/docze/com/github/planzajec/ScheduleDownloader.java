@@ -5,24 +5,15 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import static android.os.Build.VERSION_CODES.M;
 
 /**
  * Klasa rozszerzająca klasę AsyncTask. AsyncTask to asnychroniczne zadanie
@@ -53,7 +44,6 @@ public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
         this.url = url;
         this.nameOfFile = nameOfFile;
         this.sid = sid.substring(4);
-        Log.d("sid", this.sid);
     }
 
     /**
@@ -65,7 +55,6 @@ public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
      * @return
      */
     protected Object doInBackground(String... strings)  {
-        Log.d("url", url.toString());
         try {
             downloadFile();
         }catch (Exception e){
@@ -80,31 +69,31 @@ public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
      * @throws Exception
      */
     private void downloadFile() throws Exception {
-            HttpURLConnection urlConnection = (HttpURLConnection)  url.openConnection();
-            urlConnection.setDoInput(true);
-            int responseCode = urlConnection.getResponseCode();
-            if( responseCode == HttpsURLConnection.HTTP_OK) {
-                InputStream inputStream = urlConnection.getInputStream();
-                File file = new File(act.getDir("Grupa_", Context.MODE_PRIVATE)+nameOfFile);
-                if(file.exists()){
-                    Log.d("usunalem", "plik");
-                    file.delete();
-                }
-                file.createNewFile();
-                BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "ISO-8859-2"));
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
-                int byteReaders = -1;
-                byte[] buffer = new byte[1024];
-                byteReaders = inputStream.read(buffer);
-                    while ((byteReaders = inputStream.read(buffer)) != -1) {
-                        fileOutputStream.write(buffer, 0, byteReaders);
-                        Log.d("pobieram", byteReaders + "");
-                    }
-                fileOutputStream.close();
-                inputStream.close();
-            }else{
-                Log.d("Pobranie", "nie udalo sie");
-            }
-    }
+        HttpURLConnection urlConnection = (HttpURLConnection)  url.openConnection();
+        urlConnection.setDoInput(true);
+        int responseCode = urlConnection.getResponseCode();
+        if( responseCode == HttpsURLConnection.HTTP_OK) {
+            InputStream inputStream = urlConnection.getInputStream();
+            File file = new File(act.getDir("Grupa_", Context.MODE_PRIVATE)+nameOfFile);
 
+            if(file.exists()){
+                file.delete();
+            }
+
+            file.createNewFile();
+            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "ISO-8859-2"));
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            int byteReaders = -1;
+            byte[] buffer = new byte[1024];
+
+            while ((byteReaders = inputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, byteReaders);
+            }
+
+            fileOutputStream.close();
+            inputStream.close();
+        }else{
+            Log.d("Pobranie", "nie udalo sie");
+        }
+    }
 }

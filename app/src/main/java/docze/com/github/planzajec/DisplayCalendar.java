@@ -177,13 +177,14 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
      *  zapisane w danej linii zajęcie ze wszystkimi istotnymi szczegółami jest dodawane do mapy zajęć.
      * */
     private void setLessonsCalendar() throws ParseException {
-        String groupName = getIntent().getStringExtra(Connection.EXTRA_MESSAGE);
+        String groupName = getIntent().getStringExtra(ScheduleChooser.EXTRA_MESSAGE);
         File file = new File(this.getDir("Grupa_", Context.MODE_PRIVATE)+ groupName + ".txt");
         if(file.exists()){
             try {
                 String line;
                 String[] parts;
-                Scanner input = new Scanner(file);
+                Scanner input = new Scanner(file, "ISO-8859-2");
+                input.nextLine();
                 while(input.hasNext()){
                     line = input.nextLine();
                     parts = line.split(",");
@@ -198,6 +199,7 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
                         );
                     }
                 }
+                input.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

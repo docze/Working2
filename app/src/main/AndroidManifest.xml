@@ -34,9 +34,15 @@
             android:parentActivityName=".Logging">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".WelcomeView" />
+                android:value=".ScheduleChooser" />
         </activity>
         <activity android:name=".FileList"></activity>
+        <activity
+            android:name=".ScheduleChooser">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WelcomeView" />
+        </activity>
     </application>
 
 </manifest>
