@@ -8,8 +8,6 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,28 +36,21 @@ public class FTPConnection extends AsyncTask<String, Void, List<String> > {
         FTPClient ftpClient = new FTPClient();
         FTPFile[] ftpFiles = null;
         List<String> checkBoxes = null;
-        DateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Log.d("FTP", "jestem tu");
+
         try {
             ftpClient.connect(params[0], 21);
-            int responseCode = ftpClient.getReplyCode();
-
-            Log.d("Polaczenie", "powiodlo sie "+responseCode);
             boolean success = ftpClient.login(login, password);
             ftpClient.enterLocalPassiveMode();
             ftpClient.type(FTP.BINARY_FILE_TYPE);
                 if(success){
-                    Log.d("Logowanie", "powiodlo sie");
                     success = ftpClient.changeWorkingDirectory("/wat");
                     if(success){
                         checkBoxes = new ArrayList<>();
-                        Log.d("Zmiana folderu", "powiodla sie");
                         ftpFiles = ftpClient.listFiles();
-                        Log.d("lista", ftpFiles.length+" to jest rozmiar listy");
+
                         for (FTPFile file : ftpFiles) {
                             String details = file.getName();
                             checkBoxes.add(details);
-                            Log.d("Plik", details);
                         }
                     }
                 }else{
