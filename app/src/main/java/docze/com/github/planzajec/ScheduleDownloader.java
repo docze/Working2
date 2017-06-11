@@ -16,10 +16,10 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Klasa rozszerzająca klasę AsyncTask. AsyncTask to asnychroniczne zadanie
- * wykonywane w wątku tła. Zadanie wykonywane jest poprzez wywołanie metody execute.
- * Po zakończeniu wykonywania zadania, nie można wykonać go ponownie.
- * Pozwala na polaczenie sie ze strona http oraz pobranie plików
+ * Klasa rozszerzajaca klase AsyncTask. AsyncTask to asnychroniczne zadanie
+ * wykonywane w watku tla. Zadanie wykonywane jest poprzez wywolanie metody execute.
+ * Po zakonczeniu wykonywania zadania, nie mozna wykonac go ponownie.
+ * Pozwala na polaczenie sie ze strona http oraz pobranie plikow
  **/
 
 public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
@@ -27,13 +27,13 @@ public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
     private URL url;
     /** Nazwa pliku do pobrania */
     private String nameOfFile = "";
-    /** Obiekt activity, ktore wywołuje zadanie */
+    /** Obiekt activity, ktore wywoluje zadanie */
     private Activity act;
     /** Id sesji */
     private String sid;
 
     /**
-     * Konstruktor zadania, pozwalana na zainicjalizowanie atrybutów klasy
+     * Konstruktor zadania, pozwala na zainicjalizowanie atrybutow klasy
      * @param act activity, ktore wywoluje zadanie
      * @param url adres strony
      * @param nameOfFile nazwa pliku do pobrania
@@ -47,12 +47,11 @@ public class ScheduleDownloader extends AsyncTask<String, Void, Object> {
     }
 
     /**
-     *
-     *  Metoda obsługująca pracę w tle. Odpowiedzialna za sekwencyjne wykonywanie zadania
-     * @param strings - tablica parametrów typu String przesylanych podczas wykonania
+     *  Metoda obslugująca prace w tle. Odpowiedzialna za sekwencyjne wykonywanie zadania
+     * @param strings tablica parametrow typu String przesylanych podczas wykonania
      *                 metody execute, w tym przypadku nie jest wykorzystywana, ale klasa AsyncTask
      *                 wymaga takiej konstrukcji.
-     * @return
+     * @return null
      */
     protected Object doInBackground(String... strings)  {
         try {

@@ -19,7 +19,7 @@ public class Logging extends AppCompatActivity {
 
     /**
      * Metoda odpowiedzialna za stworzenie widoku
-     * @param savedInstanceState - informacja na temat stanu activity
+     * @param savedInstanceState informacja na temat stanu activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,9 @@ public class Logging extends AppCompatActivity {
     }
 
     /**
-     * Metoda obsługująca zdarzenie onclick w widoku activity_main,
+     * Metoda obslugujaca zdarzenie onclick w widoku activity_main,
      * odpowiedzialna wykonanie procedury logowania
-     * @param w - widok activity
+     * @param w widok activity
      */
     public void log(View w){
         EditText editPesel = (EditText) findViewById(R.id.peselInput);
@@ -43,9 +43,9 @@ public class Logging extends AppCompatActivity {
     }
 
     /**
-     * Metoda czyści pola wprowadzania danych
-     * @param editPassword - kontrolka wprowadzania  hasła
-     * @param editPesel - kontrolka wprowadzania numeru PESEL
+     * Metoda czysci pola wprowadzania danych
+     * @param editPassword kontrolka wprowadzania hasla
+     * @param editPesel kontrolka wprowadzania numeru PESEL
      */
     private void cleanInputs(EditText editPassword, EditText editPesel) {
         editPassword.setText("");

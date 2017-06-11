@@ -21,26 +21,26 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Klasa obsługująca kalendarz - jego wyświetlanie i przetwarzanie danych
+ * Klasa obslugujaca kalendarz - jego wyswietlanie i przetwarzanie danych
  */
 public class DisplayCalendar extends AppCompatActivity implements View.OnClickListener{
 
     /** Pole kalendarza do ustalania dat */
     private static java.util.Calendar calendar = java.util.Calendar.getInstance();
-    /** Pole przechowujące rok */
+    /** Pole przechowujace rok */
     private static int year = calendar.get(java.util.Calendar.YEAR);
-    /** Pole przechowujące miesiąc */
+    /** Pole przechowujace miesiac */
     private static int month = calendar.get(java.util.Calendar.MONTH);
-    /** Pole przechowujące dzień miesiąca */
+    /** Pole przechowujace dzien miesiaca */
     private static int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-    /** Mapa przechowująca lekcje - kluczami są daty, a wartościami tablice zajęć w danym dniu */
+    /** Mapa przechowujaca lekcje - kluczami sa daty, a wartosciami tablice zajeć w danym dniu */
     private static Map<Date, Lesson[]> lessons = new HashMap<Date, Lesson[]>();
-    /** Pole przechowujące format daty "yyyy-MM-dd" */
+    /** Pole przechowujace format daty "yyyy-MM-dd" */
     final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    /** Metoda wywoływana automatycznie po utworzeniu Activity obsługującego kalendarz. Ustawiany jest
-     *  język, w jakim mają zostać wyświetlone miesiące. Metoda dodaje również odpowiedniego słuchacza
-     *  do przycisków zmiany miesięcy w tył i w przód, a także do akcji zmiany daty w danym miesiącu.
+    /** Metoda wywolywana automatycznie po utworzeniu Activity obslugującego kalendarz. Ustawiany jest
+     *  jezyk, w jakim maja zostac wyswietlone miesiace. Metoda dodaje rowniez odpowiedniego sluchacza
+     *  do przyciskow zmiany miesiecy w tyl i w przod, a takze do akcji zmiany daty w danym miesiacu.
      *  @param savedInstanceState   zachowany stan instancji
      */
     @Override
@@ -82,11 +82,11 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    /** Metoda dodająca lekcje do aktualnie zaznaczonego dnia w kalendarzu
+    /** Metoda dodajaca lekcje do aktualnie zaznaczonego dnia w kalendarzu
      *  @param view         widok kalendarza
-     *  @param year         wybrany i zaznaczony przez użytkownika rok
-     *  @param month        wybrany i zaznaczony przez użytkownika miesiąc
-     *  @param dayOfMonth   wybrany i zaznaczony przez użytkownika dzień miesiąca
+     *  @param year         wybrany i zaznaczony przez uzytkownika rok
+     *  @param month        wybrany i zaznaczony przez uzytkownika miesiac
+     *  @param dayOfMonth   wybrany i zaznaczony przez uzytkownika dzien miesiaca
      */
     void putLessonsToCalendar(CalendarView view, int year, int month, int dayOfMonth) {
         final TextView tv = (TextView) findViewById(R.id.textView);
@@ -115,10 +115,10 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    /** Metoda wywoływana po kliknięciu przyciski zmiany miesiąca wstecz lub w przód - oblicza nowy miesiąc,
-     * który powinien zostać wyświetlony. Następnie kończy obecnie wyświetlane Activity i rozpoczyna nowe,
-     * z nowym wybranym przez użytkownika miesiącem.
-     * @param view      widok, do którego są dołączone przyciski
+    /** Metoda wywolywana po kliknieciu przycisku zmiany miesiaca wstecz lub w przod - oblicza nowy miesiac,
+     * ktory powinien zostac wyswietlony. Nastepnie konczy obecnie wyswietlane Activity i rozpoczyna nowe,
+     * z nowym wybranym przez uzytkownika miesiacem.
+     * @param view      widok, do ktorego sa dolaczone przyciski
      */
     @Override
     public void onClick(View view) {
@@ -150,8 +150,8 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         startActivity(getIntent());
     }
 
-    /** Metoda wykorzystywana do obliczenia pierwszego i ostatniego dnia miesiąca, aby
-     * wyświetlić tylko jeden, wybrany przez użytkownika miesiać.
+    /** Metoda wykorzystywana do obliczenia pierwszego i ostatniego dnia miesiaca, aby
+     * wyswietlic tylko jeden, wybrany przez uzytkownika miesiać.
      */
     private void setCalendarMonth(){
         calendar.set(java.util.Calendar.YEAR, year);
@@ -172,9 +172,9 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         calendarView.refreshDrawableState();
     }
 
-    /** Metoda przetwarzająca zapisany w pamięci urządzenia plik tekstowy planu zajęć w formacie CSV.
-     *  Plik ten jest wczytywany linia po linii, dzielony na części względem przecinka, a następnie
-     *  zapisane w danej linii zajęcie ze wszystkimi istotnymi szczegółami jest dodawane do mapy zajęć.
+    /** Metoda przetwarzajaca zapisany w pamięci urzadzenia plik tekstowy planu zajęc w formacie CSV.
+     *  Plik ten jest wczytywany linia po linii, dzielony na czesci wzgledem przecinka, a nastepnie
+     *  zapisane w danej linii zajecie ze wszystkimi istotnymi szczegolami jest dodawane do mapy zajec.
      * */
     private void setLessonsCalendar() throws ParseException {
         String groupName = getIntent().getStringExtra(ScheduleChooser.EXTRA_MESSAGE);
@@ -208,12 +208,12 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    /** Metoda pozwalająca wstawić do mapy zajęć nowe zajęcie.
-     *  @param dateString       data zajęcia
+    /** Metoda pozwalajaca wstawic do mapy zajec nowe zajecie.
+     *  @param dateString       data zajecia
      *  @param subject          przedmiot
-     *  @param type             typ zajęcia
-     *  @param start            godzina rozpoczęcia
-     *  @param number           kolejny numer zajęcia z danego przedmiotu i typu
+     *  @param type             typ zajecia
+     *  @param start            godzina rozpoczecia
+     *  @param number           kolejny numer zajecia z danego przedmiotu i typu
      *  @param classRoom        sala
      */
     private void insertRowToMap(String dateString, String subject, String type, String start, String number, String classRoom) {
@@ -243,9 +243,9 @@ public class DisplayCalendar extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    /** Metoda obliczająća na podstawie przekazanej jako parametr godziny rozpoczęcia zajęć oblicza,
-     *  który jest to blok zajęć w ciągu dnia.
-     *  @param start godzina rozpoczęcia zajęć
+    /** Metoda na podstawie przekazanej jako parametr godziny rozpoczecia zajec oblicza,
+     *  ktory jest to blok zajec w ciagu dnia.
+     *  @param start godzina rozpoczecia zajec
      */
     private int countIndex(String start) {
         int index = -1;

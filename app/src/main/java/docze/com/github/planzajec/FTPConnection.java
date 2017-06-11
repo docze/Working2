@@ -12,24 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Klasa rozszerzająca klasę AsyncTask. AsyncTask to asnychroniczne zadanie
- * wykonywane w wątku tła. Zadanie wykonywane jest poprzez wywołanie metody execute.
- * Po zakończeniu wykonywania zadania, nie można wykonać go ponownie.
+ * Klasa rozszerzajaca klase AsyncTask. AsyncTask to asnychroniczne zadanie
+ * wykonywane w watku tla. Zadanie wykonywane jest poprzez wywolanie metody execute.
+ * Po zakonczeniu wykonywania zadania, nie mozna wykonac go ponownie.
  * Pozwala na polaczenie sie z serwerem FTP
  *
  */
 
 public class FTPConnection extends AsyncTask<String, Void, List<String> > {
-    /** login użytkownika serwera FTP */
+    /** login uzytkownika serwera FTP */
     private String login = "planzajec";
-    /** hasło użytkownika serwera FTP */
+    /** haslo uzytkownika serwera FTP */
     private String password = "watjestokej";
 
     /**
      * Metoda odpowiedzialna za utworzenie polaczenia z serwerem FTP oraz
-     * utworzenia listy plików do pobrania
-     * @param params - tablica obiektów typu String, przechowuje adres serwera FTP
-     * @return
+     * utworzenia listy plikow do pobrania
+     * @param params tablica obiektow typu String, przechowuje adres serwera FTP
+     * @return lista zaznaczonych planow
      */
     @Override
     protected List<String> doInBackground(String... params) {

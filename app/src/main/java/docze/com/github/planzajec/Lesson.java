@@ -1,41 +1,41 @@
 package docze.com.github.planzajec;
 
 /**
- * Klasa służąca do przechowywania informacji na temat zajęć
+ * Klasa slużaca do przechowywania informacji na temat zajęcia
  */
 public class Lesson {
-    /** Nazwa przedmiot zajęcia */
+    /** Nazwa przedmiotu zajecia */
     private String subject = "";
-    /** Typ zajęcia */
+    /** Typ zajecia */
     private String type = "";
-    /** Godzina rozpoczęcia zajęcia */
+    /** Godzina rozpoczecia zajecia */
     private String start;
-    /** Godzina zakończenia zajęcia */
+    /** Godzina zakonczenia zajecia */
     private String end;
-    /** Kolejny numer zajęcia z danego przedmiotu i typu */
+    /** Kolejny numer zajecia z danego przedmiotu i typu */
     private String number = "";
     /** Sala */
     private String classRoom = "";
 
     /** Konstruktor klasy Lesson
-     *  @param start    godzina rozpoczęcia zajęcia
-     *  @param end      godzina zakończenia zajęcia
+     *  @param start    godzina rozpoczecia zajecia
+     *  @param end      godzina zakonczenia zajecia
      */
     public Lesson(String start, String end) {
         this.start = start;
         this.end = end;
     }
 
-    /** Metoda odpowiadająca za zwrócenie informacji o zajęciu */
+    /** Metoda odpowiadajaca za zwrocenie informacji o zajeciu */
     @Override
     public String toString() {
         return start + " - " + end + "  " + subject + "  " + type + number + "  " + classRoom;
     }
 
-    /** Metoda odpowiadajaca za ustawienie informacji o zajęciu
+    /** Metoda odpowiadajaca za ustawienie informacji o zajeciu
      *  @param subject      nazwa przedmiotu
-     *  @param type         typ zajęcia
-     *  @param number       kolejny numer zajęcia z danego przedmiotu i typu
+     *  @param type         typ zajecia
+     *  @param number       kolejny numer zajecia z danego przedmiotu i typu
      *  @param classRoom    sala
      */
     public void insertSubjectData(String subject, String type, String number, String classRoom){

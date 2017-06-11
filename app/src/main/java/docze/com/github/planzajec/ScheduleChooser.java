@@ -19,17 +19,17 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- *  Klasa pozwalajacąca wybrać, jaki plan wyświetlić użytkownikowi.
- *  Po wciśnięciu odpowiedniego przycisku odsyła do widoku kalendarza
+ *  Klasa pozwalajaca wybrac, jaki plan wyswietlic uzytkownikowi.
+ *  Po wcisnieciu odpowiedniego przycisku odsyla do widoku kalendarza
  */
 public class ScheduleChooser extends AppCompatActivity {
-    /** Pole pozwalające na przesłanie wiadomości do innego Activity */
+    /** Pole pozwalajace na przeslanie wiadomosci do innego Activity */
     public final static String EXTRA_MESSAGE = "docze.com.github.planzajec.MESSAGE";
-    /** Lista grup, których plan jest dostępny do wyświetlenia */
+    /** Lista grup, ktorych plan jest dostepny do wyswietlenia */
     List<String> groupList;
 
-    /** Metoda uruchamiana przy tworzeniu Activity. Znajduje dostępne w telefonie
-     *  zajęcia, które można wyświetlić oraz tworzy dla nich przyciski.
+    /** Metoda uruchamiana przy tworzeniu Activity. Znajduje dostepne w telefonie
+     *  zajecia, ktore mozna wyswietlic oraz tworzy dla nich przyciski.
      *
      *  @param savedInstanceState zachowany stan instancji
      *  */
@@ -42,8 +42,8 @@ public class ScheduleChooser extends AppCompatActivity {
         fillList();
     }
 
-    /** Metoda odpowiedzialna za utworzenie i wypełnienie listy dostępnych w telefonie planów zajęć
-     *  poprzez przeszukanie katalogu plików.
+    /** Metoda odpowiedzialna za utworzenie i wypelnienie listy dostepnych w telefonie planow zajec
+     *  poprzez przeszukanie katalogu plikow.
      */
     private void findSchedules(){
         groupList = new ArrayList<>();
@@ -65,8 +65,8 @@ public class ScheduleChooser extends AppCompatActivity {
         }
     }
 
-    /** Metoda odpowiedzialna za utworzenie przycisków dla wszystkich grup,
-     *  które znajdują się na liście groupList
+    /** Metoda odpowiedzialna za utworzenie przyciskow dla wszystkich grup,
+     *  ktore znajduja sie na liscie groupList
      */
     private void fillList(){
         LinearLayout ll = (LinearLayout)  findViewById(R.id.listGroup);
@@ -80,8 +80,8 @@ public class ScheduleChooser extends AppCompatActivity {
         }
     }
 
-    /** Słuchacz wywoływany po kliknięciu w przycisk grupy. Zczytuje
-     *  z przycisku nazwę grupy i wywołuje metodę showSchedule()
+    /** Sluchacz wywolywany po kliknieciu w przycisk grupy. Zczytuje
+     *  z przycisku nazwe grupy i wywoluje metode showSchedule()
      */
     private View.OnClickListener isClicked = new View.OnClickListener() {
         public void onClick(View v) {
@@ -91,9 +91,9 @@ public class ScheduleChooser extends AppCompatActivity {
     };
 
     /**
-     * Metoda obsługująca zdarzenie onclick, na rzecz przycisku @id/showSchedule
-     * w widoku activity_main, pozwala na przejście do widoku kalendarza
-     * @param groupName - nazwa grupy
+     * Metoda obslugujaca zdarzenie onclick, na rzecz przycisku @id/showSchedule
+     * w widoku activity_main, pozwala na przejscie do widoku kalendarza
+     * @param groupName nazwa grupy
      */
     public void showSchedule(String groupName){
         if((new File(this.getDir("Grupa_", Context.MODE_PRIVATE)+ groupName + ".txt")).exists()){
