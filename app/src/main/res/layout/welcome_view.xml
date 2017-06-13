@@ -7,7 +7,7 @@
         android:id="@+id/logo"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:layout_marginLeft="121dp"
+        android:layout_gravity="center"
         android:layout_weight="1"
         android:src="@drawable/logo_wat"
         />

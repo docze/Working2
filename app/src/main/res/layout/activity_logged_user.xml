@@ -6,13 +6,13 @@
     tools:context="docze.com.github.planzajec.DisplayCalendar">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="340dp"
         android:paddingTop="20dp"
         android:id="@+id/relativeLayout">
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="400dp"
-            android:layout_height="300dp"
+            android:layout_height="340dp"
             android:paddingTop="5dp"
             android:firstDayOfWeek="2"
             android:layout_alignParentLeft="true"
